@@ -1,10 +1,10 @@
-import './App.css';
-import { Button } from 'antd';
+import "./App.css";
+import Student from "./components/student";
 
 function App() {
   return (
     <div className="App">
-      <Button type="primary">Hello</Button>
+      <Student />
     </div>
   );
 }
