@@ -10,11 +10,11 @@ import {
   LoadingOutlined,
 } from "@ant-design/icons";
 
+const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function Student() {
-  const { Header, Content, Footer, Sider } = Layout;
-  const { SubMenu } = Menu;
   const [students, setStudents] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
   const [fetching, setFetching] = useState(true);
