@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Layout, Menu, Breadcrumb } from "antd";
+import { Table, Layout, Menu, Breadcrumb, Spin, Empty } from "antd";
 import axios from "axios";
 import {
   DesktopOutlined,
@@ -7,19 +7,23 @@ import {
   FileOutlined,
   TeamOutlined,
   UserOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
 function Student() {
-  const [students, setStudents] = useState([]);
-  const { Column, ColumnGroup } = Table;
   const { Header, Content, Footer, Sider } = Layout;
   const { SubMenu } = Menu;
+  const [students, setStudents] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
+  const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
     async function fetchStudents() {
       const request = await axios.get("/api/v1/students");
       setStudents(request.data);
+      setFetching(false);
       return request;
     }
     fetchStudents();
@@ -49,10 +53,23 @@ function Student() {
   ];
 
   const renderStudents = () => {
-    if (students.length <= 0) {
-      return "No data available";
+    if (fetching) {
+      return <Spin indicator={antIcon} />;
     }
-    return <Table dataSource={students} columns={columns} />;
+    if (students.length <= 0) {
+      return <Empty />;
+    }
+    return (
+      <Table
+        dataSource={students}
+        columns={columns}
+        rowKey={(student) => student.id}
+        bordered
+        title={() => "Students"}
+        pagination={{ pageSize: 50 }}
+        scroll={{ y: 240 }}
+      />
+    );
   };
 
   return (
@@ -85,7 +102,8 @@ function Student() {
           <Header className="site-layout-background" style={{ padding: 0 }} />
           <Content style={{ margin: "0 16px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>Students</Breadcrumb.Item>
+              <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div
               className="site-layout-background"
