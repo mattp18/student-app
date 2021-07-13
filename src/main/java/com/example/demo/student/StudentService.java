@@ -2,6 +2,8 @@ package com.example.demo.student;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Matthew Puentes
  * @version 1.0
@@ -19,7 +21,7 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Iterable<Student> getAllStudents() {
+    public List<Student> findAllStudents() {
         return studentRepository.findAll();
     }
 }

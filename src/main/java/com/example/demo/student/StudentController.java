@@ -21,6 +21,6 @@ public class StudentController {
 
     @GetMapping
     public Iterable<Student> getAllStudents() {
-        return studentService.getAllStudents() ;
+        return studentService.findAllStudents() ;
     }
 }
