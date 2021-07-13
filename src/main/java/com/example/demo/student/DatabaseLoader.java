@@ -21,16 +21,16 @@ public class DatabaseLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Student student1 = new Student();
-        student1.setId(234L);
+        //student1.setId(234L);
         student1.setName("Matt");
         student1.setEmail("testing@gmail.com");
-        student1.setGender("MALE");
+        student1.setGender(Gender.MALE);
 
         Student student2 = new Student();
-        student2.setId(23434634L);
+        //student2.setId(23434634L);
         student2.setName("Andy");
         student2.setEmail("testing2332@gmail.com");
-        student2.setGender("FEMALE");
+        student2.setGender(Gender.FEMALE);
 
         studentService.createStudent(student1);
         studentService.createStudent(student2);

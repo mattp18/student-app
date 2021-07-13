@@ -1,10 +1,8 @@
 package com.example.demo.student;
 
-import lombok.Data;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author Matthew Puentes
@@ -12,16 +10,34 @@ import javax.persistence.Id;
  * @since 1.0
  */
 
-@Data
+@ToString
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@Table()
 public class Student {
     @Id
-    @GeneratedValue()
+    @SequenceGenerator(
+            name = "student_sequence",
+            sequenceName = "student_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            generator = "student_sequence",
+            strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
     private String email;
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
-
+    public Student(String name, String email, Gender gender) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+    }
 }
