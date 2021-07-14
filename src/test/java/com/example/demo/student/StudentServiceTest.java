@@ -32,7 +32,7 @@ class StudentServiceTest {
     }
 
     @Test
-    void saveStudent() {
+    void whenStudentPassedIntoSave_expectStudent() {
         Student student = new Student();
         student.setId(1L);
         student.setEmail("test@test.com");
