@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, Input, InputNumber, Modal, Button } from "antd";
+import { Form, Input, Modal, Button } from "antd";
+import axios from "axios";
 
 function PopUpForm() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -9,8 +10,23 @@ function PopUpForm() {
     wrapperCol: { span: 16 },
   };
 
-  const onFinish = (value) => {
-    console.log(value);
+  // const dataForm = new FormData();
+  // dataForm.append("name", this.addStudent.);
+  // dataForm.append("email", this.state.email);
+  // dataForm.append("gender", this.state.gender);
+
+  const onFinish = (values: any) => {
+    console.log(typeof student);
+    console.log(values);
+
+    axios
+      .post("/api/v1/students/addStudent", values)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const showModal = () => {
@@ -53,32 +69,14 @@ function PopUpForm() {
           onFinish={onFinish}
           validateMessages={validateMessages}
         >
-          <Form.Item
-            name={["user", "name"]}
-            label="Name"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item
-            name={["user", "email"]}
-            label="Email"
-            rules={[{ type: "email" }]}
-          >
+          <Form.Item name="email" label="Email" rules={[{ type: "email" }]}>
             <Input />
           </Form.Item>
-          <Form.Item
-            name={["user", "age"]}
-            label="Age"
-            rules={[{ type: "number", min: 0, max: 99 }]}
-          >
-            <InputNumber />
-          </Form.Item>
-          <Form.Item name={["user", "website"]} label="Website">
+          <Form.Item name="gender" label="Gender">
             <Input />
-          </Form.Item>
-          <Form.Item name={["user", "introduction"]} label="Introduction">
-            <Input.TextArea />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit">
