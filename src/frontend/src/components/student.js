@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Layout, Menu, Breadcrumb, Spin, Empty } from "antd";
 import axios from "axios";
+import PopUpForm from "./popUpForm";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -109,6 +110,7 @@ function Student() {
               className="site-layout-background"
               style={{ padding: 24, minHeight: 360 }}
             >
+              <PopUpForm />
               {renderStudents()}
             </div>
           </Content>
