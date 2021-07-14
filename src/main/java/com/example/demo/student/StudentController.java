@@ -1,8 +1,9 @@
 package com.example.demo.student;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Matthew Puentes
@@ -10,17 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0
  */
 @RestController
+@AllArgsConstructor
 @RequestMapping(path = "api/v1/students")
 public class StudentController {
 
     private final StudentService studentService;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.findAllStudents() ;
     }
 
-    @GetMapping
-    public Iterable<Student> getAllStudents() {
-        return studentService.findAllStudents() ;
+    @PostMapping(
+       value = "/addStudent",
+       consumes = "application/json",
+       produces = "application/json"
+    )
+    public Student addStudent(@RequestBody Student student) {
+        return studentService.saveStudent(student);
     }
 }
