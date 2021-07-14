@@ -30,7 +30,7 @@ public class DatabaseLoader implements CommandLineRunner {
         student2.setEmail("testing2332@gmail.com");
         student2.setGender(Gender.FEMALE);
 
-        studentService.createStudent(student1);
-        studentService.createStudent(student2);
+        studentService.saveStudent(student1);
+        studentService.saveStudent(student2);
     }
 }
