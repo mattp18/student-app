@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { Form, Input, Modal, Button } from "antd";
+import { Form, Input, Modal, Button, Select } from "antd";
 import axios from "axios";
+import {
+  successNotification,
+  infoNotification,
+  errorNotification,
+  warningNotification,
+} from "./Notification";
+
+const { Option } = Select;
 
 function PopUpForm() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
 
   const layout = {
     labelCol: { span: 8 },
@@ -15,7 +24,7 @@ function PopUpForm() {
   // dataForm.append("email", this.state.email);
   // dataForm.append("gender", this.state.gender);
 
-  const onFinish = (values: any) => {
+  const onFinish = (values) => {
     console.log(typeof student);
     console.log(values);
 
@@ -23,6 +32,11 @@ function PopUpForm() {
       .post("/api/v1/students/addStudent", values)
       .then(function (response) {
         console.log(response);
+        form.resetFields();
+        successNotification(
+          "Student successfully added!",
+          `Student ${values.name} was added to the system`
+        );
       })
       .catch(function (error) {
         console.log(error);
@@ -39,6 +53,17 @@ function PopUpForm() {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const onGenderChange = (value: string) => {
+    switch (value) {
+      case "male":
+        form.setFieldsValue({ note: "Hi, man!" });
+        return;
+      case "female":
+        form.setFieldsValue({ note: "Hi, lady!" });
+        return;
+    }
   };
 
   const validateMessages = {
@@ -65,6 +90,7 @@ function PopUpForm() {
       >
         <Form
           {...layout}
+          form={form}
           name="nest-messages"
           onFinish={onFinish}
           validateMessages={validateMessages}
@@ -76,7 +102,14 @@ function PopUpForm() {
             <Input />
           </Form.Item>
           <Form.Item name="gender" label="Gender">
-            <Input />
+            <Select
+              placeholder="Select an option"
+              onChange={onGenderChange}
+              allowClear
+            >
+              <Option value="MALE">Male</Option>
+              <Option value="FEMALE">Female</Option>
+            </Select>
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit">
