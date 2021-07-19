@@ -10,7 +10,7 @@ import {
 
 const { Option } = Select;
 
-function PopUpForm() {
+function PopUpForm({ fetchStudents }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
 
@@ -18,11 +18,6 @@ function PopUpForm() {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
-
-  // const dataForm = new FormData();
-  // dataForm.append("name", this.addStudent.);
-  // dataForm.append("email", this.state.email);
-  // dataForm.append("gender", this.state.gender);
 
   const onFinish = (values) => {
     console.log(typeof student);
@@ -37,6 +32,7 @@ function PopUpForm() {
           "Student successfully added!",
           `Student ${values.name} was added to the system`
         );
+        fetchStudents();
       })
       .catch(function (error) {
         console.log(error);

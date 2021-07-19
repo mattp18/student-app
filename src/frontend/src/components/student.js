@@ -21,14 +21,19 @@ function Student() {
   const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
-    async function fetchStudents() {
+    fetchStudents();
+  }, []);
+
+  async function fetchStudents() {
+    try {
       const request = await axios.get("/api/v1/students");
       setStudents(request.data);
       setFetching(false);
       return request;
+    } catch (error) {
+      console.log(error);
     }
-    fetchStudents();
-  }, []);
+  }
 
   const columns = [
     {
@@ -110,7 +115,7 @@ function Student() {
               className="site-layout-background"
               style={{ padding: 24, minHeight: 360 }}
             >
-              <PopUpForm />
+              <PopUpForm fetchStudents={fetchStudents} />
               {renderStudents()}
             </div>
           </Content>
