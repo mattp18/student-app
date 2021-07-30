@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
  * @since 1.0
  */
 @Component
-public class DatabaseLoader implements CommandLineRunner {
+public class DatabaseSeeder implements CommandLineRunner {
 
     private final StudentService studentService;
 
-    public DatabaseLoader(StudentService studentService) {
+    public DatabaseSeeder(StudentService studentService) {
         this.studentService = studentService;
     }
 

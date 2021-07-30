@@ -56,6 +56,9 @@ function Student() {
       dataIndex: "gender",
       key: "gender",
     },
+    {
+      title: "Actions",
+    },
   ];
 
   const renderStudents = () => {
